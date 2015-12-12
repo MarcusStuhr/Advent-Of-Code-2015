@@ -19,7 +19,7 @@ def is_nice_part_1(s):
 
 def is_nice_part_2(s):
     """
-    Returns True if string s is a nice string using criteria from part 1.
+    Returns True if string s is a nice string using criteria from part 2.
     Returns False otherwise.
     Uses a two-part regex:
     1. s contains a letter triplet where the first and third characters match. Second char can be anything.
