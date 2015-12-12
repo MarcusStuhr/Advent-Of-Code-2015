@@ -6,8 +6,7 @@ PUZZLE_DATA_FILENAME = "day03_input.txt"
 
 def houses_visited(instructions):
     """
-    Returns a set of (unique) houses visited, given a string of
-    instructions.
+    Returns a set of (unique) houses visited, given a string of instructions.
     The origin point (0,0) is included by default.
     """
     houses = set([(0,0)])
@@ -24,9 +23,11 @@ def houses_visited(instructions):
 
 def num_houses_visited(*args):
     """
-    Given a tuple of instruction strings, this loops over each string and
-    unions together all the results from houses_visited(), and finally
-    returns the length of this master set.
+    Given a tuple of instruction strings, this loops over each string,
+    computes houses_visited() to get the set of houses visited,
+    and then unions all these results together to get the houses visited
+    across all independent trips.
+    The length of this master set is then returned.
     """
     master_set = set()
     for instructions in args:
