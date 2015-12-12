@@ -3,7 +3,7 @@ import sys
 def part1():
     with open(sys.argv[1]) as f:
         instructions = f.read()
-    print instructions
+    return instructions
 
 def main():
     print part1()
