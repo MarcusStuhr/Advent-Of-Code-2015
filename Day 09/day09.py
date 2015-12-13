@@ -25,7 +25,8 @@ def hamiltonian_min_and_max_cost(costs_graph, node_names, from_node, already_vis
     A tuple, (min_cost, max_cost)
     If no Hamiltonian path exists from (from_node, already_visited), then max_cost will be negative
 
-    Time complexity O(n^2 * 2^n) where n is the number of nodes
+    Time complexity:
+    O(n^2 * 2^n), where n is the number of nodes
     """
     
     if already_visited == (1<<len(node_names))-1: #if all nodes have been visited, we stop
