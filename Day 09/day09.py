@@ -7,8 +7,8 @@ memo_cache = {}
 
 def hamiltonian_min_and_max_cost(costs_graph, node_names, from_node, already_visited):
     """
-    Computes the min and max-cost Hamiltonian paths starting at from_node, without
-    visiting any nodes encoded in the bitmask. This function is memoized on
+    Computes the min and max-costs of the Hamiltonian paths starting at from_node, without
+    visiting any nodes encoded in the bitmask already_visited. This function is memoized on
     (from_node, already_visited) with an external dictionary called memo_cache.
     
     Inputs:
@@ -19,8 +19,8 @@ def hamiltonian_min_and_max_cost(costs_graph, node_names, from_node, already_vis
 
     Assumptions:
     -All costs in costs_graph are positive
-    -The value 10**10 is larger than any path cost in the graph
-
+    -The value 10**10 is larger than any of the path costs
+    
     Returns:
     A tuple, (min_cost, max_cost)
     If no Hamiltonian path exists from (from_node, already_visited), then max_cost will be negative
