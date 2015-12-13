@@ -7,11 +7,11 @@ cache = {}
 
 def hamiltonian_min_and_max_cost(dist_graph, city_names, from_city, visited, sentinel):
     """
-    dist_graph: A cost dictionary. dist_graph[A][B] is the cost of going from city A to city B.
+    dist_graph: A defaultdict of costs. dist_graph[A][B] is the cost of going from city A to city B.
     city_names: A list of the city names
     from_city: The name of the city we are about to leave
     visited: A bitmask representing which cities we've already visited (mapping to city_names)
-    sentinel: abs of this number is greater than any path cost, computed from abs(sum of all costs) + 1
+    sentinel: abs() of this number is greater than any path cost, computed from sum of all abs(costs) + 1
 
     This function returns the min and max cost of the Hamiltonian path starting at from_city, without
     visiting any cities already denoted in the visited bitmask.
