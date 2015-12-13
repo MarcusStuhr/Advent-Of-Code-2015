@@ -3,39 +3,48 @@ from collections import defaultdict
 
 PUZZLE_DATA_FILENAME = "day09_input.txt"
 
-cache = {}
+memo_cache = {}
 
-def hamiltonian_min_and_max_cost(dist_graph, city_names, from_city, visited, sentinel):
+def hamiltonian_min_and_max_cost(dist_graph, node_names, from_node, already_visited):
     """
-    dist_graph: A defaultdict of costs. dist_graph[A][B] is the cost of going from city A to city B.
-    city_names: A list of the city names
-    from_city: The name of the city we are about to leave
-    visited: A bitmask representing which cities we've already visited (mapping to city_names)
-    sentinel: abs() of this number is greater than any path cost, computed from sum of all abs(costs) + 1
+    Computes the min and max-cost Hamiltonian paths starting at from_node, without
+    visiting any nodes encoded in the bitmask. This function is memoized on
+    (from_node, already_visited) with an external dictionary called memo_cache.
 
-    This function returns the min and max cost of the Hamiltonian path starting at from_city, without
-    visiting any cities already denoted in the visited bitmask.
+    Assumptions:
+    -All costs are positive
+    -The value 10**10 is larger than any path cost in the graph
+    
+    Inputs:
+    dist_graph: A defaultdict of costs. dist_graph[A][B] is the cost of going from A to B directly
+    node_names: A list of the node names, derived from the keys of dist_graph
+    from_node: The name of the node we are about to leave
+    already_visited: A bitmask representing which nodes we've already visited (mapping to node_names)
 
-    Time complexity O(n^2 * 2^n) where n is the number of cities
+    Returns:
+    Two integers, min_cost and max_cost
+    If no Hamiltonian path exists from (from_node, already_visited), then max_cost will be negative.
+
+    Time complexity O(n^2 * 2^n) where n is the number of nodes
     """
     
-    if visited == (1<<len(city_names))-1: #if all cities have been visited, we stop
+    if already_visited == (1<<len(node_names))-1: #if all nodes have been visited, we stop
         return 0,0
     
-    memo_key = (from_city, visited)
-    if memo_key in cache: #if we've encountered this position before, return the work we've already done
-        return cache[memo_key] 
+    memo_key = (from_node, already_visited)
+    if memo_key in memo_cache: #if we've encountered this position before, return the work we've already done
+        return memo_cache[memo_key] 
     
-    min_cost = abs(sentinel)
-    max_cost = -abs(sentinel)
+    min_cost = 10**10
+    max_cost = -10**10
     
-    for index,to_city in enumerate(city_names):
-        if visited & (1<<index) == 0 and to_city in dist_graph[from_city]:
-            min_cost_next, max_cost_next = hamiltonian_min_and_max_cost(dist_graph, city_names, to_city, visited | (1<<index), sentinel)
-            min_cost = min(min_cost, dist_graph[from_city][to_city] + min_cost_next)
-            max_cost = max(max_cost, dist_graph[from_city][to_city] + max_cost_next)
+    for index,to_node in enumerate(node_names):
+        if already_visited & (1<<index) == 0 and to_node in dist_graph[from_node]:
+            min_cost_next, max_cost_next = hamiltonian_min_and_max_cost(dist_graph, node_names, to_node, already_visited | (1<<index))
+            min_cost = min(min_cost, dist_graph[from_node][to_node] + min_cost_next)
+            max_cost = max(max_cost, dist_graph[from_node][to_node] + max_cost_next)
             
-    cache[memo_key] = (min_cost, max_cost)
+    memo_cache[memo_key] = (min_cost, max_cost)
     return min_cost, max_cost
 
 
@@ -61,20 +70,20 @@ def main():
         from_city,to_city,dist = words[0],words[2],int(words[-1])
         dist_graph[from_city][to_city] = dist
         dist_graph[to_city][from_city] = dist
-        sum_costs += abs(dist)
-
-    min_cost = abs(sum_costs)+1 #bigger than any path cost
-    max_cost = -(abs(sum_costs)+1) #smaller than any path cost
+        sum_costs += dist
+        
+    min_cost = 10**10
+    max_cost = -10**10
     city_names = list(dist_graph.keys())
     
     for index, to_city in enumerate(city_names):
-        min_cost_next, max_cost_next = hamiltonian_min_and_max_cost(dist_graph, city_names, to_city, 1<<index, abs(sum_costs)+1)
+        min_cost_next, max_cost_next = hamiltonian_min_and_max_cost(dist_graph, city_names, to_city, 1<<index)
         min_cost = min(min_cost, min_cost_next)
         max_cost = max(max_cost, max_cost_next)
      
     print "Answer to part 1: {}".format(min_cost)
     print "Answer to part 2: {}".format(max_cost)
 
- 
+
 if __name__ == "__main__":
     main()
