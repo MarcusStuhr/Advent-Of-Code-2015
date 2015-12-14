@@ -34,7 +34,6 @@ def dist_winning_reindeer_part_1(reindeer_dict, at_time):
 
 
 def points_winning_reindeer_part_2(reindeer_dict, time_limit):
-    best_pts = 0
     n = len(reindeer_dict.keys())
     points = defaultdict(int)
     
