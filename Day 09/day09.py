@@ -65,14 +65,12 @@ def main():
     lines = file_contents_string.split('\n')
 
     dist_graph = defaultdict(dict)
-    sum_costs = 0
     
     for line in lines:
         words = line.strip().split(" ")
         from_city,to_city,dist = words[0],words[2],int(words[-1])
         dist_graph[from_city][to_city] = dist
         dist_graph[to_city][from_city] = dist
-        sum_costs += dist
         
     min_cost = 10**10
     max_cost = -10**10
