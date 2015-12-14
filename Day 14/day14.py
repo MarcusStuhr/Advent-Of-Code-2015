@@ -5,16 +5,6 @@ import re
 PUZZLE_DATA_FILENAME = "day14_input.txt"
 
 
-def get_file_input(filename):
-    try:
-        with open(filename) as f:
-            data = f.read()
-        return data
-    except IOError:
-       print "Unable to open/read input file {}".format(filename)
-       sys.exit(1)
-
-
 class Reindeer():
     def __init__(self, name, fly_speed, fly_duration, rest_duration):
         self.name = name
@@ -48,7 +38,7 @@ def points_winning_reindeer_part_2(reindeer_dict, time_limit):
     n = len(reindeer_dict.keys())
     points = defaultdict(int)
     
-    for at_time in xrange(1,time_limit+1):
+    for at_time in xrange(1, time_limit+1):
         dist_data = [(get_distance(reindeer, at_time), reindeer.name) for reindeer in reindeer_dict.values()]
         best_dist = max(d[0] for d in dist_data)
         for dist, name in dist_data:
@@ -56,6 +46,16 @@ def points_winning_reindeer_part_2(reindeer_dict, time_limit):
                 points[name]+=1
                 
     return max(points.values())
+
+
+def get_file_input(filename):
+    try:
+        with open(filename) as f:
+            data = f.read()
+        return data
+    except IOError:
+       print "Unable to open/read input file {}".format(filename)
+       sys.exit(1)
 
 
 def main():
