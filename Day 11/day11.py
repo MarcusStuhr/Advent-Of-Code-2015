@@ -30,7 +30,7 @@ def is_valid_password(password):
     return True
 
 
-def get_next_password(password):
+def get_next_valid_password(password):
     while 1:
         if is_valid_password(password): return password
         password = next_word(password)
@@ -39,8 +39,8 @@ def get_next_password(password):
 def main():
     current_password = "vzbxkghb"
     
-    ans_part_1 = get_next_password(current_password)
-    ans_part_2 = get_next_password(next_word(ans_part_1))
+    ans_part_1 = get_next_valid_password(current_password)
+    ans_part_2 = get_next_valid_password(next_word(ans_part_1))
     
     print "Answer to part 1: {}".format(ans_part_1)
     print "Answer to part 2: {}".format(ans_part_2)
