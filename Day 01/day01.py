@@ -6,18 +6,29 @@ PUZZLE_DATA_FILENAME = "day01_input.txt"
 
 def final_floor(instructions):
     """
-    Assumed starting position is floor 0.
-    Finds the final floor by counting up the number of ups vs. downs.
+    Inputs:
+    instructions = a string of "(" and ")" characters. "(" means "down a floor" and ")" means "up a floor"
+    
+    Outputs:
+    An integer representing the final floor after all movements
+    
+    Assumptions:
+    Starting position is floor 0
     """
     return sum(1 if instruction=='(' else -1 for instruction in instructions)
 
 
 def find_basement_index(instructions):
     """
-    Assumed starting position is floor 0.
-    Tracks the up/down movements to determine when floor -1 is reached.
-    Returns 1-indexed answer.
-    Returns -1 if floor -1 is never reached.
+    Inputs:
+    instructions = a string of "(" and ")" characters. "(" means "down a floor" and ")" means "up a floor"
+    
+    Outputs:
+    An integer representing the index (using 1-indexing) of the first instruction leading to floor -1
+    Returns -1 if floor -1 is never reached
+    
+    Assumptions:
+    Starting position is floor 0, starting index is 1
     """
     current_floor = 0
     
