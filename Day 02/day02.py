@@ -6,20 +6,22 @@ PUZZLE_DATA_FILENAME = "day02_input.txt"
 
 def wrapping_paper_needed(l,w,h):
     """
-    Given gift dimensions l,w,h, determine how many sq. feet
-    of wrapping paper is required.
-    Answer is total surface area plus the area of the smallest side.
+    Inputs:
+    Three ints: the length, width, and height of the gift
+    
+    Outputs:
+    An integer representing the amount of wrapping paper needed (in sqft) according to the problem criteria
     """
     return 2*(l*w + l*h + w*h) + min(l*w, l*h, w*h)
 
 
 def ribbon_length_needed(l,w,h):
     """
-    Given gift dimensions l,w,h, determine how many feet of
-    ribbon is required.
-    Answer is 2*(sum of smallest 2 lengths) + l*w*h.
-    The left part is equivalent to:
-    2*(sum of all 3 lengths) - 2*(max of the 3 lengths)
+    Inputs:
+    Three ints: the length, width, and height of the gift
+    
+    Outputs:
+    An integer representing the amount of ribbon needed (in ft) according to the problem criteria
     """
     return 2*(l + w + h) - 2*max(l, w, h) + l*w*h
 
