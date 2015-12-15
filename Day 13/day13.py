@@ -8,6 +8,29 @@ memo_cache = {}
 
 
 def hamiltonian_path_cost(costs_graph, from_node, already_visited, first_node = None):
+    """
+    Finds the min/max cost Hamiltonian path in the graph, starting at from_node without visiting anything in
+    the bitmask already_visited. If a cycle is required, then first_node will be visited at
+    the end when there are no more nodes to visit.
+
+    Inputs:
+    costs_graph: A defaultdict of dicts containing edge costs between nodes, labeled with strings.
+        e.g. costs_graph["label1"]["label2"] -> 25
+    from_node: The label of the node we are about to leave from
+    already_visited: A bitmask representing the nodes we've already visited
+    first_node: The label of the very first node we visited (in the event we require a circuit)
+
+    Outputs:
+    A three-element tuple containing a boolean (determining whether a valid Hamiltonian path was found),
+    the min cost Hamiltonian path, and the max cost Hamiltonian path.
+
+    Assumptions:
+    No path will have a cost > 10^10 or <-10^10.
+
+    Requirements:
+    An external dictionary, memo_cache, for memoization purposes.
+    """
+
     if already_visited == (1<<len(costs_graph.keys()))-1: #if all nodes have been visited, we stop
         if first_node == None:
             return True, 0, 0
@@ -36,6 +59,30 @@ def hamiltonian_path_cost(costs_graph, from_node, already_visited, first_node = 
 
 
 def find_hamiltonian_min_max_costs(costs_graph, require_return_origin = False):
+    """
+    Finds the min/max cost Hamiltonian path (or cycle, depending) in the graph, with no particular
+    preference for where it begins
+
+    Inputs:
+    costs_graph: A defaultdict of dicts containing edge costs between nodes, labeled with strings.
+        e.g. costs_graph["label1"]["label2"] -> 25
+    require_return_origin: A boolean determining whether or not the Hamiltonian path must start and
+    end at the same place (i.e. forming a cycle)
+
+    Outputs:
+    A three-element tuple containing a boolean (determining whether a valid Hamiltonian path was found),
+    the min cost Hamiltonian path, and the max cost Hamiltonian path.
+
+    Assumptions:
+    No path will have a cost > 10^10 or <-10^10.
+
+    Requirements:
+    An external dictionary, memo_cache, for memoization purposes.
+
+    Time complexity:
+    O(n^2 2^n)
+    """
+
     min_cost = 10**10
     max_cost = -10**10
     is_valid = False
@@ -52,14 +99,15 @@ def find_hamiltonian_min_max_costs(costs_graph, require_return_origin = False):
     return is_valid, min_cost, max_cost
 
 
+
 def get_file_input(filename):
     try:
         with open(filename) as f:
             data = f.read()
         return data
     except IOError:
-       print "Unable to open/read input file {}".format(filename)
-       sys.exit(1)
+        print "Unable to open/read input file {}".format(filename)
+        sys.exit(1)
 
 
 def main():
