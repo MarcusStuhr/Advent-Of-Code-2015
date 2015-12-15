@@ -47,8 +47,8 @@ def get_file_input(filename):
             data = f.read()
         return data
     except IOError:
-       print "Unable to open/read input file {}".format(filename)
-       sys.exit(1)
+        print "Unable to open/read input file {}".format(filename)
+        sys.exit(1)
 
 
 def main():
