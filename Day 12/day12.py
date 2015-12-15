@@ -16,14 +16,15 @@ def sum_ints_in_json(obj, stop_word):
     return sum_ints_in_json(obj.values(), stop_word)
 
 
+
 def get_file_input(filename):
     try:
         with open(filename) as f:
             data = f.read()
         return data
     except IOError:
-       print "Unable to open/read input file {}".format(filename)
-       sys.exit(1)
+        print "Unable to open/read input file {}".format(filename)
+        sys.exit(1)
 
 
 def main():
