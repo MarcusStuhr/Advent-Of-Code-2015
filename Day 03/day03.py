@@ -6,8 +6,15 @@ PUZZLE_DATA_FILENAME = "day03_input.txt"
 
 def houses_visited(instructions):
     """
-    Returns a set of (unique) houses visited, given a string of instructions.
-    The origin point (0,0) is included by default.
+    Inputs:
+    A string of instructions containing characters from {'<','V','>','^'}, representing directions
+    
+    Outputs:
+    A set of two-element tuples representing the coordinates of which houses were visited.
+    
+    Assumptions:
+    Traversal begins at point (0,0)
+    (0,0) is counted as being visited by default.
     """
     houses = set([(0,0)])
     cur_x = 0
@@ -21,16 +28,17 @@ def houses_visited(instructions):
     return houses
 
 
-def num_houses_visited(*args):
+def num_houses_visited(*instructions_args):
     """
-    Given a tuple of instruction strings, this loops over each string,
-    computes houses_visited() to get the set of houses visited,
-    and then unions all these results together to get the houses visited
-    across all independent trips.
-    The length of this master set is then returned.
+    Inputs:
+    A tuple of instruction strings. Each string contains characters from {'<','V','>','^'}, representing directions
+    
+    Outputs:
+    The number of houses visited (collectively) across all instruction strings -- the length of a 
+    master set formed after unioning together the results from houses_visited() for each instruction string
     """
     master_set = set()
-    for instructions in args:
+    for instructions in instructions_args:
         master_set |= houses_visited(instructions)
     return len(master_set)
 
