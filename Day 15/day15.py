@@ -1,6 +1,7 @@
 import sys
 import re
 
+
 PUZZLE_DATA_FILENAME = "day15_input.txt"
 CALORIE_TARGET = 500
 TEASPOON_TARGET = 100
