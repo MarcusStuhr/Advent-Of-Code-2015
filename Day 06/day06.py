@@ -22,18 +22,18 @@ def modify_lights(M, r1, c1, r2, c2, command, modification_rules):
     Given a matrix M, coordinates for upper left cell (r1,c1), coordinates for
     lower right cell (r2,c2), a command string, and a dict of rules that map the command
     to lambda-function modifications, modify the lights within the bound range
-    with the given command. 
+    with the given command.
     """
     for r in xrange(r1, r2+1):
         for c in xrange(c1, c2+1):
             M[r][c] = modification_rules[command](M[r][c])
-            
+
 
 def count_lights_on(commands, rule_index, size_matrix = SIZE_MATRIX):
     """
     Sums up the values of the cells of matrix M after performing all the commands found
     in commands (a list of strings). The rule_index determines which rules to use
-    (in this case, MODIFICATION_RULES[1] or MODIFICATION_RULES[2]. 
+    (in this case, MODIFICATION_RULES[1] or MODIFICATION_RULES[2].
     """
     M = [[0 for i in xrange(size_matrix)] for j in xrange(size_matrix)]
 
@@ -46,7 +46,7 @@ def count_lights_on(commands, rule_index, size_matrix = SIZE_MATRIX):
             modify_lights(M, r1, c1, r2, c2, command, MODIFICATION_RULES[rule_index])
         except:
             raise Exception("Invalid input format for line: {}".format(command))
-            
+
     return sum(M[r][c] for r in xrange(size_matrix) for c in xrange(size_matrix))
 
 
@@ -56,9 +56,8 @@ def get_file_input(filename):
             data = f.read()
         return data
     except IOError:
-       print "Unable to open/read input file {}".format(filename)
-       sys.exit(1)
-
+        print "Unable to open/read input file {}".format(filename)
+        sys.exit(1)
 
 def main():
     file_contents_string = get_file_input(PUZZLE_DATA_FILENAME)
@@ -67,6 +66,6 @@ def main():
     print "Answer to part 1: {}".format(count_lights_on(commands,1))
     print "Answer to part 2: {}".format(count_lights_on(commands,2))
 
- 
+
 if __name__ == "__main__":
     main()
