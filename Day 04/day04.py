@@ -5,7 +5,13 @@ from itertools import count
 
 def make_MD5_hash(secret_key, prefix, start_num = 1):
     """
-    Finds the smallest number >= start_num such that md5(secret_key + str(number)) begins with
+    Inputs:
+    secret_key, part of the string which we'd like to perform the hash function on
+    prefix, a string that we'd like to be at the start of the hash
+    start_num, an integer (defaulted to 1)
+    
+    Outputs:
+    The smallest number >= start_num such that md5(secret_key + str(number)) begins with
     the given prefix string.
     """
     for num in count(start_num):
