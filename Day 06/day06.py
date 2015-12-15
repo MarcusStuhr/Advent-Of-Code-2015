@@ -20,7 +20,7 @@ MODIFICATION_RULES[2]= {"turn on": lambda k: k+1,
 def modify_lights(M, r1, c1, r2, c2, command, modification_rules):
     """
     Given a matrix M, coordinates for upper left cell (r1,c1), coordinates for
-    lower right cell (r2,c2), a command, and a set of rules that map the command
+    lower right cell (r2,c2), a command string, and a dict of rules that map the command
     to lambda-function modifications, modify the lights within the bound range
     with the given command. 
     """
@@ -32,7 +32,8 @@ def modify_lights(M, r1, c1, r2, c2, command, modification_rules):
 def count_lights_on(commands, rule_index, size_matrix = SIZE_MATRIX):
     """
     Sums up the values of the cells of matrix M after performing all the commands found
-    in the commands list. The rule index determines which set of rules to use.
+    in commands (a list of strings). The rule_index determines which rules to use
+    (in this case, MODIFICATION_RULES[1] or MODIFICATION_RULES[2]. 
     """
     M = [[0 for i in xrange(size_matrix)] for j in xrange(size_matrix)]
 
