@@ -13,4 +13,4 @@ For example:
 
 Now find one that starts with **six zeroes**.
 
-Your puzzle input was `bgvyzdsv`.
+Your puzzle input was **`bgvyzdsv`**.
