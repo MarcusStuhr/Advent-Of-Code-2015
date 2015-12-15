@@ -12,16 +12,35 @@ OPERATIONS = {"AND": lambda a,b: a&b,
               "SELF": lambda a: a}
 
 
-def get_wire_value(input, wire_signals):
-    if input in wire_signals:
-        return wire_signals[input]
-    elif input.isdigit():
-        return int(input)
+def get_wire_value(incoming, wire_signals):
+    """
+    Inputs:
+    incoming: A string, either in the form of a number, e.g. "15265", or a letter, e.g. "x"
+    wire_signals: A dict that maps wire labels to their wire values, e.g. wire_signals["x"] -> 4
+    
+    Outputs:
+    An integer representing the value represented by incoming. 
+    Returns None if incoming is not a number or a letter found in wire_signals
+    """
+    if incoming in wire_signals:
+        return wire_signals[incoming]
+    elif incoming.isdigit():
+        return int(incoming)
     else:
         return None
 
 
 def parse_line(line):
+    """
+    Inputs:
+    line: A string representing wire inputs to a wire output, e.g. "x AND 252 -> a"
+    
+    Outputs:
+    A three-element tuple containing the inputs, the relevant operator, and the output wire.
+    e.g. (['x', '252'], 'AND', 'a').
+    
+    The relevant operations can be found in OPERATIONS
+    """
     lefthand_side, receiving_wire = line.strip().split(" -> ")
 
     op_findall = re.findall(r"[A-Z]+", lefthand_side)
@@ -32,6 +51,15 @@ def parse_line(line):
 
 
 def run_circuit(instructions, overrides = {}):
+    """
+    Inputs:
+    instructions: A list of tuples -- lines that have been parsed with parse_line()
+    overrides: A dict of wire-mapping overrides, if desired. e.g. {"b": 25626}. Any mappings here will
+    override any mappings in the instructions list.
+    
+    Outputs:
+    A dict wire_signals representing the mappings of wire labels to wire outputs
+    """
     wire_signals = {}
     instructions_copy = instructions[:]
     
@@ -41,7 +69,7 @@ def run_circuit(instructions, overrides = {}):
         while index < len(instructions_copy):
             input_wires, operator, receiving_wire = instructions_copy[index]
             
-            input_vals = [get_wire_value(input, wire_signals) for input in input_wires]
+            input_vals = [get_wire_value(incoming, wire_signals) for incoming in input_wires]
             
             if receiving_wire in wire_signals or None in input_vals:
                 index+=1
@@ -53,7 +81,7 @@ def run_circuit(instructions, overrides = {}):
                 instructions_copy.pop(index)
             
     return wire_signals
-
+    
 
 def get_file_input(filename):
     try:
@@ -61,8 +89,8 @@ def get_file_input(filename):
             data = f.read()
         return data
     except IOError:
-       print "Unable to open/read input file {}".format(filename)
-       sys.exit(1)
+        print "Unable to open/read input file {}".format(filename)
+        sys.exit(1)
 
 
 def main():
