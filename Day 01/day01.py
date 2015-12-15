@@ -7,7 +7,7 @@ PUZZLE_DATA_FILENAME = "day01_input.txt"
 def final_floor(instructions):
     """
     Inputs:
-    instructions = a string of "(" and ")" characters. "(" means "down a floor" and ")" means "up a floor"
+    instructions = a string of '(' and ')' characters. '(' means "up a floor" and ')' means "down a floor"
     
     Outputs:
     An integer representing the final floor after all movements
@@ -21,7 +21,7 @@ def final_floor(instructions):
 def find_basement_index(instructions):
     """
     Inputs:
-    instructions = a string of "(" and ")" characters. "(" means "down a floor" and ")" means "up a floor"
+    instructions = a string of '(' and ')' characters. '(' means "up a floor" and ')' means "down a floor"
     
     Outputs:
     An integer representing the index (using 1-indexing) of the first instruction leading to floor -1
@@ -52,7 +52,7 @@ def get_file_input(filename):
 
 
 def main():
-    instructions = get_file_input(PUZZLE_DATA_FILENAME)
+    instructions = get_file_input(PUZZLE_DATA_FILENAME).strip()
     
     print "Answer to part 1: {}".format(final_floor(instructions))
     print "Answer to part 2: {}".format(find_basement_index(instructions))
