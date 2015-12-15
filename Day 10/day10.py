@@ -3,6 +3,9 @@ from itertools import groupby
 
 
 def look_and_say(input_string, num_iterations):
+    """
+    Returns the string formed after applying the Look-And-Say algorithm on input_string (num_iterations times).
+    """
     for i in xrange(num_iterations):
         input_string = ''.join([str(len(list(g))) + str(k) for k, g in groupby(input_string)])
     return input_string
