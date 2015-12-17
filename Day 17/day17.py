@@ -6,7 +6,7 @@ PUZZLE_DATA_FILENAME = "day17_input.txt"
 
 def count_combinations(container_sizes, target_sum, find_minimal = False):
     ans = 0
-    for k in xrange(1, len(container_sizes)):
+    for k in xrange(1, len(container_sizes)+1):
         for c in combinations(container_sizes, k):
             if sum(c) == target_sum:
                 ans+=1
