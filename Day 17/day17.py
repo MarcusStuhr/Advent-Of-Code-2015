@@ -5,11 +5,10 @@ PUZZLE_DATA_FILENAME = "day17_input.txt"
 
 
 def count_combinations(container_sizes, target_sum):
-    dp = [1] + [0] * (target_sum)
+    dp = [1] + [0]*(target_sum)
     for cur_num in container_sizes:
-        for next_num in xrange(target_sum - cur_num, -1, -1):
-            if dp[next_num]:
-                dp[next_num + cur_num] += dp[next_num]
+        for next_num in xrange(target_sum, cur_num-1, -1):
+            dp[next_num] += dp[next_num - cur_num]
     return dp[target_sum]
 
 
