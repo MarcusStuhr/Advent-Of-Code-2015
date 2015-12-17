@@ -9,7 +9,7 @@ memo_cache = {}
 def hamiltonian_path_cost(costs_graph, from_node, already_visited, first_node = None):
     """
     Finds the min/max cost Hamiltonian path in the graph, starting at from_node without visiting anything in
-    the bitmask already_visited. If a cycle is required, then first_node will be visited at
+    the bitmask already_visited. If a circuit is required, then first_node will be visited at
     the end when there are no more nodes to visit.
     
     Inputs:
@@ -59,14 +59,14 @@ def hamiltonian_path_cost(costs_graph, from_node, already_visited, first_node = 
 
 def find_hamiltonian_min_max_costs(costs_graph, require_return_origin = False):
     """
-    Finds the min/max cost Hamiltonian path (or cycle, depending) in the graph, with no particular
+    Finds the min/max cost Hamiltonian path (or circuit, depending) in the graph, with no particular
     preference for where it begins
     
     Inputs:
     costs_graph: A defaultdict of dicts containing edge costs between nodes, labeled with strings. 
         e.g. costs_graph["label1"]["label2"] -> 25
     require_return_origin: A boolean determining whether or not the Hamiltonian path must start and
-    end at the same place (i.e. forming a cycle)
+    end at the same place (i.e. forming a circuit)
         
     Outputs:
     A three-element tuple containing a boolean (determining whether a valid Hamiltonian path was found), 
