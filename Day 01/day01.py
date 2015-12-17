@@ -1,6 +1,3 @@
-import sys
-
-
 PUZZLE_DATA_FILENAME = "day01_input.txt"
 
 
@@ -41,18 +38,8 @@ def find_basement_index(instructions):
     return -1
 
 
-def get_file_input(filename):
-    try:
-        with open(filename) as f:
-            data = f.read()
-        return data
-    except IOError:
-        print "Unable to open/read input file {}".format(filename)
-        sys.exit(1)
-
-
 def main():
-    instructions = get_file_input(PUZZLE_DATA_FILENAME).strip()
+    instructions = open(PUZZLE_DATA_FILENAME).read().strip()
     
     print "Answer to part 1: {}".format(final_floor(instructions))
     print "Answer to part 2: {}".format(find_basement_index(instructions))

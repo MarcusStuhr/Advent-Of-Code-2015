@@ -1,4 +1,3 @@
-import sys
 import re
 
 
@@ -83,18 +82,8 @@ def run_circuit(instructions, overrides = {}):
     return wire_signals
     
 
-def get_file_input(filename):
-    try:
-        with open(filename) as f:
-            data = f.read()
-        return data
-    except IOError:
-        print "Unable to open/read input file {}".format(filename)
-        sys.exit(1)
-
-
 def main():
-    file_contents_string = get_file_input(PUZZLE_DATA_FILENAME)
+    file_contents_string = open(PUZZLE_DATA_FILENAME).read()
     instructions = [parse_line(line) for line in file_contents_string.split('\n')]
 
     ans_part_1 = run_circuit(instructions)['a']

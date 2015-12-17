@@ -1,4 +1,3 @@
-import sys
 from collections import defaultdict
 import re
 
@@ -70,21 +69,8 @@ def points_winning_reindeer_part_2(reindeer_dict, at_time):
     return max(points.values())
 
 
-
-def get_file_input(filename):
-    try:
-        with open(filename) as f:
-            data = f.read()
-        return data
-    except IOError:
-        print "Unable to open/read input file {}".format(filename)
-        sys.exit(1)
-
-
-
 def main():
-    file_contents_string = get_file_input(PUZZLE_DATA_FILENAME)
-    lines = file_contents_string.split('\n')
+    lines = open(PUZZLE_DATA_FILENAME).read().split("\n")
 
     reindeer_dict = defaultdict(Reindeer)
 

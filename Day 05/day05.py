@@ -1,4 +1,3 @@
-import sys
 import re
 
 
@@ -42,18 +41,8 @@ def count_nice_strings_part_2(strings):
     return sum(is_nice_part_2(s) for s in strings) 
 
 
-def get_file_input(filename):
-    try:
-        with open(filename) as f:
-            data = f.read()
-        return data
-    except IOError:
-        print "Unable to open/read input file {}".format(filename)
-        sys.exit(1)
-
-
 def main():
-    file_contents_string = get_file_input(PUZZLE_DATA_FILENAME)
+    file_contents_string = open(PUZZLE_DATA_FILENAME).read()
     strings = file_contents_string.split('\n')
 
     print "Answer to part 1: {}".format(count_nice_strings_part_1(strings))

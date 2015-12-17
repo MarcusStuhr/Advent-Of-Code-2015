@@ -1,4 +1,3 @@
-import sys
 import re
 
 PUZZLE_DATA_FILENAME = "day15_input.txt"
@@ -30,18 +29,8 @@ def get_max_cookie_score(ingredients, calorie_constraint = False):
     return max_score
 
 
-def get_file_input(filename):
-    try:
-        with open(filename) as f:
-            data = f.read()
-        return data
-    except IOError:
-       print "Unable to open/read input file {}".format(filename)
-       sys.exit(1)
-
-
 def main():
-    lines = get_file_input(PUZZLE_DATA_FILENAME).split("\n")
+    lines = open(PUZZLE_DATA_FILENAME).read().split("\n")
     ingredients = [map(int,re.findall(r"[-]?[\d]+",line)) for line in lines]
     
     print "Answer to part 1: {}".format(get_max_cookie_score(ingredients))

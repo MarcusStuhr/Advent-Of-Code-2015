@@ -1,4 +1,3 @@
-import sys
 from collections import defaultdict
 import re
 
@@ -25,9 +24,6 @@ def hamiltonian_path_cost(costs_graph, from_node, already_visited, first_node = 
     A three-element tuple containing a boolean (determining whether a valid Hamiltonian path was found), 
     the min cost Hamiltonian path, and the max cost Hamiltonian path.
     
-    Assumptions:
-    No path will have a cost > 10^10 or <-10^10.
-    
     Requirements:
     An external dictionary, memo_cache, for memoization purposes.
     """
@@ -44,8 +40,8 @@ def hamiltonian_path_cost(costs_graph, from_node, already_visited, first_node = 
     if memo_key in memo_cache: #if we've encountered this position before, return the work we've already done
         return memo_cache[memo_key]
 
-    min_cost = 10**10
-    max_cost = -10**10
+    min_cost = float('inf')
+    max_cost = -float('inf')
     is_valid = False
 
     for index, to_node in enumerate(costs_graph.keys()):
@@ -73,10 +69,7 @@ def find_hamiltonian_min_max_costs(costs_graph, require_return_origin = False):
     Outputs:
     A three-element tuple containing a boolean (determining whether a valid Hamiltonian path was found), 
     the min cost Hamiltonian path, and the max cost Hamiltonian path.
-    
-    Assumptions:
-    No path will have a cost > 10^10 or <-10^10.
-    
+        
     Requirements:
     An external dictionary, memo_cache, for memoization purposes.
     
@@ -84,8 +77,8 @@ def find_hamiltonian_min_max_costs(costs_graph, require_return_origin = False):
     O(n^2 2^n)
     """
     
-    min_cost = 10**10
-    max_cost = -10**10
+    min_cost = float('inf')
+    max_cost = -float('inf')
     is_valid = False
     memo_cache.clear()
 
@@ -100,18 +93,8 @@ def find_hamiltonian_min_max_costs(costs_graph, require_return_origin = False):
     return is_valid, min_cost, max_cost
 
 
-def get_file_input(filename):
-    try:
-        with open(filename) as f:
-            data = f.read()
-        return data
-    except IOError:
-        print "Unable to open/read input file {}".format(filename)
-        sys.exit(1)
-
-
 def main():
-    file_contents_string = get_file_input(PUZZLE_DATA_FILENAME)
+    file_contents_string = open(PUZZLE_DATA_FILENAME).read()
     lines = file_contents_string.split('\n')
 
     happiness_graph = defaultdict(dict)

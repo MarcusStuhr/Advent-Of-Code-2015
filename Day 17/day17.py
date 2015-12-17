@@ -23,18 +23,8 @@ def count_minimal_combinations(container_sizes, target_sum):
     return ans
 
 
-def get_file_input(filename):
-    try:
-        with open(filename) as f:
-            data = f.read()
-        return data
-    except IOError:
-        print "Unable to open/read input file {}".format(filename)
-        sys.exit(1)
-
-
 def main():
-    container_sizes = map(int,get_file_input(PUZZLE_DATA_FILENAME).split("\n"))
+    container_sizes = map(int,open(PUZZLE_DATA_FILENAME).read().split("\n"))
     print "Answer to part 1: {}".format(count_combinations(container_sizes, 150))
     print "Answer to part 2: {}".format(count_minimal_combinations(container_sizes, 150))
 

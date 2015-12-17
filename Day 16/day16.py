@@ -39,18 +39,8 @@ def find_sue(lines, sue_stats, overrides_gt = [], overrides_lt = []):
     return -1
 
 
-def get_file_input(filename):
-    try:
-        with open(filename) as f:
-            data = f.read()
-        return data
-    except IOError:
-        print "Unable to open/read input file {}".format(filename)
-        sys.exit(1)
-
-
 def main():
-    lines = get_file_input(PUZZLE_DATA_FILENAME).split("\n")
+    lines = open(PUZZLE_DATA_FILENAME).read().split("\n")
     print "Answer to part 1: {}".format(find_sue(lines, SUE_STATS))
     print "Answer to part 2: {}".format(find_sue(lines, SUE_STATS, ("cats","trees"),("pomeranians","goldfish")))
 

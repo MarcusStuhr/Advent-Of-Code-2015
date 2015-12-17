@@ -1,4 +1,3 @@
-import sys
 import re
 
 
@@ -50,17 +49,8 @@ def count_lights_on(commands, rule_index, size_matrix = SIZE_MATRIX):
     return sum(M[r][c] for r in xrange(size_matrix) for c in xrange(size_matrix))
 
 
-def get_file_input(filename):
-    try:
-        with open(filename) as f:
-            data = f.read()
-        return data
-    except IOError:
-        print "Unable to open/read input file {}".format(filename)
-        sys.exit(1)
-
 def main():
-    file_contents_string = get_file_input(PUZZLE_DATA_FILENAME)
+    file_contents_string = open(PUZZLE_DATA_FILENAME).read()
     commands = file_contents_string.split('\n')
 
     print "Answer to part 1: {}".format(count_lights_on(commands,1))

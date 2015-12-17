@@ -1,6 +1,3 @@
-import sys
-
-
 PUZZLE_DATA_FILENAME = "day03_input.txt"
 
 
@@ -43,18 +40,8 @@ def num_houses_visited(*instructions_args):
     return len(master_set)
 
 
-def get_file_input(filename):
-    try:
-        with open(filename) as f:
-            data = f.read()
-        return data
-    except IOError:
-        print "Unable to open/read input file {}".format(filename)
-        sys.exit(1)
-
-
 def main():
-    instructions = get_file_input(PUZZLE_DATA_FILENAME)
+    instructions = open(PUZZLE_DATA_FILENAME).read()
 
     num_houses_visted_part_1 = num_houses_visited(instructions)
     
