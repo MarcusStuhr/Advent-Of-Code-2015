@@ -10,14 +10,14 @@ Then, animate your grid in steps, where each step decides the next configuration
 
 For example, in a simplified 6x6 grid, the light marked `A` has the neighbors numbered `1` through `8`, and the light marked `B`, which is on an edge, only has the neighbors marked `1` through `5`:
 
-
+```
 1B5...
 234...
 ......
 ..123.
 ..8A4.
 ..765.
-
+```
 
 The state a light should have next is based on its current state (on or off) plus the **number of neighbors that are on**:
 
