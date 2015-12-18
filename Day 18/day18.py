@@ -14,7 +14,7 @@ def clear_bit(num, bit_index):
     return num & ~(1 << bit_index)
 
 
-def evolve(grid, num_rows, num_cols, n, corners_fixed = False):
+def evolve(grid, num_rows, num_cols, num_generations, corners_fixed = False):
     
     if corners_fixed:
         grid[0] = set_bit(grid[0], 0)
@@ -22,36 +22,36 @@ def evolve(grid, num_rows, num_cols, n, corners_fixed = False):
         grid[num_rows-1] = set_bit(grid[num_rows-1], 0)
         grid[num_rows-1] = set_bit(grid[num_rows-1], num_cols-1)
         
-    if n==0:
-        return count_lights_on(grid,num_rows,num_cols)
+    for generation_index in xrange(num_generations):
+        newgrid = grid[:]
+        
+        for r in xrange(num_rows):
+            for c in xrange(num_cols):
+                if corners_fixed and (r,c) in [(0,0),(0,num_cols-1),(num_rows-1,0),(num_rows-1,num_cols-1)]:
+                    continue
+                
+                neighbors = 0
+                
+                for offsetr in [-1,0,1]:
+                    for offsetc in [-1,0,1]:
+                        if offsetr==offsetc==0:
+                            continue
+                        neighbors += (0<=r+offsetr<num_rows and 0<=c+offsetc<num_cols and get_bit(grid[r+offsetr],c+offsetc)==1)
 
-    newgrid = grid[:]
-    
-    for r in xrange(num_rows):
-        for c in xrange(num_cols):
-            if corners_fixed and (r,c) in [(0,0),(0,num_cols-1),(num_rows-1,0),(num_rows-1,num_cols-1)]:
-                continue
-            
-            neighbors = 0
-            
-            for offsetr in [-1,0,1]:
-                for offsetc in [-1,0,1]:
-                    if offsetr==offsetc==0:
-                        continue
-                    neighbors += (0<=r+offsetr<num_rows and 0<=c+offsetc<num_cols and get_bit(grid[r+offsetr],c+offsetc)==1)
-
-            if get_bit(grid[r],c) == 1:
-                if neighbors==2 or neighbors==3:
-                    newgrid[r] = set_bit(newgrid[r],c)
+                if get_bit(grid[r],c) == 1:
+                    if neighbors==2 or neighbors==3:
+                        newgrid[r] = set_bit(newgrid[r],c)
+                    else:
+                        newgrid[r] = clear_bit(newgrid[r],c)
                 else:
-                    newgrid[r] = clear_bit(newgrid[r],c)
-            else:
-                if neighbors == 3:
-                    newgrid[r] = set_bit(newgrid[r],c)
-                else:
-                    newgrid[r] = clear_bit(newgrid[r],c)
-                    
-    return evolve(newgrid,num_rows,num_cols,n-1,corners_fixed)
+                    if neighbors == 3:
+                        newgrid[r] = set_bit(newgrid[r],c)
+                    else:
+                        newgrid[r] = clear_bit(newgrid[r],c)
+                        
+        grid = newgrid
+            
+    return count_lights_on(grid, num_rows, num_cols)
 
 
 def main():
