@@ -1,8 +1,8 @@
 PUZZLE_DATA_FILENAME = "day18_input.txt"
 
 
-def count_lights_on(lines,num_rows,num_cols):
-    return sum(bin(num)[2:].count("1") for num in lines)
+def count_lights_on(grid, num_rows, num_cols):
+    return sum(bin(num)[2:].count("1") for num in grid)
 
 def get_bit(num, bit_index):
     return (num & (1 << bit_index)) != 0
