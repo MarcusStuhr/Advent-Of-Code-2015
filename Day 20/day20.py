@@ -1,12 +1,12 @@
 def find_house_number(target, multiplier, present_lim = None):
-    lim = target/10
-    divs = [0]*(lim+1)
-    for a in xrange(1,lim+1):
-        bound = min(lim, a + (present_lim-1)*a) if present_lim else lim
-        for j in xrange(a,bound+1,a):
-            divs[j]+=multiplier*a
-    for i in xrange(lim+1):
-        if divs[i] >= target:
+    lim = target/multiplier
+    presents = [multiplier]*(lim+1)
+    for i in xrange(2,lim+1):
+        bound = min(lim, i + (present_lim-1)*i) if present_lim else lim
+        for j in xrange(i,bound+1,i):
+            presents[j]+=multiplier*i
+    for i in xrange(1,lim+1):
+        if presents[i] >= target:
             return i
     return -1
 
