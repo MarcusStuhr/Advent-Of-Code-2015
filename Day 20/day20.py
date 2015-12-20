@@ -15,6 +15,5 @@ def main():
     print "Answer to part 1: {}".format(find_house_number(target,10))
     print "Answer to part 2: {}".format(find_house_number(target,11,50))
 
-
 if __name__ == "__main__":
     main()
