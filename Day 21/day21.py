@@ -1,4 +1,5 @@
 from itertools import combinations
+from math import ceil
 
 HERO_INITIAL_HP = 100
 HERO_INITIAL_DAMAGE = 0
@@ -46,15 +47,9 @@ def get_costs():
                             damage_to_boss = max(1, hero_damage - boss_armor)
                             damage_to_hero = max(1, boss_damage - hero_armor)
     
-                            while 1:
-                                boss_hp -= damage_to_boss
-                                if boss_hp <= 0: break
-                                hero_hp -= damage_to_hero
-                                if hero_hp <= 0: break
-                                
-                            if hero_hp > 0:
+                            if ceil(float(hero_hp) / damage_to_hero) >= ceil(float(boss_hp) / damage_to_boss):
                                 min_cost = min(min_cost, hero_cost)
-                            if hero_hp <= 0:
+                            else:
                                 max_cost = max(max_cost, hero_cost)
                                 
     return min_cost, max_cost
