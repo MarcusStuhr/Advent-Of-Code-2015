@@ -26,7 +26,6 @@ class Spell(object):
 
 class GameState(object):
     memo_cache = {}
-    best_min = float('inf')
 
     def __init__(self, hero_hp, boss_hp, boss_damage, hero_armor, hero_mana, timers, spells, hard_mode):
         self.hero_hp = hero_hp
@@ -109,8 +108,6 @@ def main():
     game_state_hard = GameState(hero_hp, boss_hp, boss_damage, hero_armor, hero_mana, timers, spells, True)
 
     print "Answer to part 1: {}".format(game_state_easy.play())
-    GameState.memo_cache.clear()
-    GameState.best_min = float('inf')
     print "Answer to part 2: {}".format(game_state_hard.play())
 
 if __name__ == "__main__":
