@@ -28,20 +28,19 @@ class GameState(object):
     memo_cache = {}
     best_min = float('inf')
 
-    def __init__(self, hero_hp, boss_hp, boss_damage, hero_armor, hero_mana, mana_spent, timers, spells, hard_mode):
+    def __init__(self, hero_hp, boss_hp, boss_damage, hero_armor, hero_mana, timers, spells, hard_mode):
         self.hero_hp = hero_hp
         self.boss_hp = boss_hp
         self.boss_damage = boss_damage
         self.hero_armor = hero_armor
         self.hero_mana = hero_mana
-        self.mana_spent = mana_spent
         self.timers = timers
         self.spells = {spell.name : spell for spell in spells}
         self.hard_mode = hard_mode
         self.active_player = "hero"
 
     def get_args(self):
-        return (self.hero_hp, self.boss_hp, self.hero_mana, self.mana_spent, tuple(self.timers), self.hard_mode)
+        return (self.hero_hp, self.boss_hp, self.hero_mana, tuple(self.timers), self.hard_mode)
 
     def apply_effects(self):
         if self.timers["Shield"] > 0:
@@ -67,10 +66,9 @@ class GameState(object):
         self.apply_effects()
 
         if self.boss_hp <= 0:
-            GameState.best_min = min(GameState.best_min, self.mana_spent)
-            return self.mana_spent
+            return 0
 
-        if self.hero_mana == 0 or self.hero_hp <= 0 or self.mana_spent >= GameState.best_min:
+        if self.hero_mana == 0 or self.hero_hp <= 0:
             return float('inf')
 
         if self.active_player == "hero": #hero's turn
@@ -79,7 +77,7 @@ class GameState(object):
             for spell in self.spells:
 
                 if self.hero_mana >= self.spells[spell].cost:
-                    if spell in self.timers and self.timers[spell]>0:
+                    if (spell in self.timers and self.timers[spell]>0):
                         continue
                     new_state = deepcopy(self)
                     if spell in new_state.timers:
@@ -87,9 +85,8 @@ class GameState(object):
                     new_state.hero_hp += new_state.spells[spell].heal
                     new_state.boss_hp -= new_state.spells[spell].cast_damage
                     new_state.hero_mana -= new_state.spells[spell].cost
-                    new_state.mana_spent += new_state.spells[spell].cost
                     new_state.active_player = "boss"
-                    min_mana_spent = min(min_mana_spent, new_state.play())
+                    min_mana_spent = min(min_mana_spent, self.spells[spell].cost + new_state.play())
 
             self.memo_cache[memo_key] = min_mana_spent
             return min_mana_spent
@@ -103,14 +100,13 @@ def main():
     hero_hp = HERO_INITIAL_HP
     hero_armor = HERO_INITIAL_ARMOR
     hero_mana = HERO_INITIAL_MANA
-    mana_spent = 0
     boss_hp = BOSS_INITIAL_HP
     boss_damage = BOSS_INITIAL_DAMAGE
     timers = {"Shield":0, "Poison":0, "Recharge":0}
     spells = tuple(Spell(*args) for args in INITIAL_SPELLS)
 
-    game_state_easy = GameState(hero_hp, boss_hp, boss_damage, hero_armor, hero_mana, mana_spent, timers, spells, False)
-    game_state_hard = GameState(hero_hp, boss_hp, boss_damage, hero_armor, hero_mana, mana_spent, timers, spells, True)
+    game_state_easy = GameState(hero_hp, boss_hp, boss_damage, hero_armor, hero_mana, timers, spells, False)
+    game_state_hard = GameState(hero_hp, boss_hp, boss_damage, hero_armor, hero_mana, timers, spells, True)
 
     print "Answer to part 1: {}".format(game_state_easy.play())
     GameState.memo_cache.clear()
