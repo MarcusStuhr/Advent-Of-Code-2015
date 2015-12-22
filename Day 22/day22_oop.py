@@ -67,7 +67,7 @@ class GameState(object):
         self.apply_effects()
 
         if self.boss_hp <= 0:
-            GameState.best_min = self.mana_spent
+            GameState.best_min = min(GameState.best_min, self.mana_spent)
             return self.mana_spent
 
         if self.hero_mana == 0 or self.hero_hp <= 0 or self.mana_spent >= GameState.best_min:
