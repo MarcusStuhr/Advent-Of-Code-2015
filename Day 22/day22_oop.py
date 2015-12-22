@@ -36,9 +36,7 @@ class GameState(object):
         self.hero_mana = hero_mana
         self.mana_spent = mana_spent
         self.timers = timers
-        self.spells = {}
-        for spell in spells:
-            self.spells[spell.name] = deepcopy(spell)
+        self.spells = {spell.name : spell for spell in spells}
         self.hard_mode = hard_mode
         self.active_player = "hero"
 
