@@ -6,7 +6,7 @@ HERO_INITIAL_MANA = 500
 BOSS_INITIAL_HP = 71
 BOSS_INITIAL_DAMAGE = 10
 
-INIT_SPELLS = {("Magic Missile",53,4,0,0,0,0,0),
+INITIAL_SPELLS = {("Magic Missile",53,4,0,0,0,0,0),
                ("Drain",73,2,0,2,0,0,0),
                ("Shield",113,0,0,0,7,0,6),
                ("Poison",173,0,3,0,0,0,6),
@@ -109,7 +109,7 @@ def main():
     boss_hp = BOSS_INITIAL_HP
     boss_damage = BOSS_INITIAL_DAMAGE
     timers = {"Shield":0, "Poison":0, "Recharge":0}
-    spells = tuple(Spell(*args) for args in INIT_SPELLS)
+    spells = tuple(Spell(*args) for args in INITIAL_SPELLS)
 
     game_state_easy = GameState(hero_hp, boss_hp, boss_damage, hero_armor, hero_mana, mana_spent, timers, spells, False)
     game_state_hard = GameState(hero_hp, boss_hp, boss_damage, hero_armor, hero_mana, mana_spent, timers, spells, True)
