@@ -38,8 +38,8 @@ class GameState(object):
         self.hard_mode = hard_mode
         self.active_player = "hero"
 
-    def get_args(self):
-        return (self.hero_hp, self.boss_hp, self.hero_mana, tuple(self.timers), self.hard_mode)
+    def get_args_memo(self):
+        return tuple([self.hero_hp, self.boss_hp, self.boss_damage, self.hero_armor, self.hero_mana, tuple(self.timers), self.hard_mode])
 
     def apply_effects(self):
         if self.timers["Shield"] > 0:
@@ -54,7 +54,7 @@ class GameState(object):
             self.timers[status] = max(0, self.timers[status]-1)
 
     def play(self):
-        memo_key = self.get_args()
+        memo_key = self.get_args_memo()
 
         if memo_key in GameState.memo_cache:
             return GameState.memo_cache[memo_key]
