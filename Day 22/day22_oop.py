@@ -7,10 +7,10 @@ BOSS_INITIAL_HP = 71
 BOSS_INITIAL_DAMAGE = 10
 
 INITIAL_SPELLS = {("Magic Missile",53,4,0,0,0,0,0),
-               ("Drain",73,2,0,2,0,0,0),
-               ("Shield",113,0,0,0,7,0,6),
-               ("Poison",173,0,3,0,0,0,6),
-               ("Recharge",229,0,0,0,0,101,5)}
+                  ("Drain",73,2,0,2,0,0,0),
+                  ("Shield",113,0,0,0,7,0,6),
+                  ("Poison",173,0,3,0,0,0,6),
+                  ("Recharge",229,0,0,0,0,101,5)}
 
 class Spell(object):
 
