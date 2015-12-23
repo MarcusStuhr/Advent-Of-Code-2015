@@ -57,7 +57,6 @@ def main():
     hero_hp = 50
     hero_armor = 0
     hero_mana = 500
-    
     mana_spent = 0
     
     boss_hp = 71
