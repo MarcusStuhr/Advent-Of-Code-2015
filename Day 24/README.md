@@ -11,7 +11,7 @@ Of course, that's not the only problem. The first group - the one going in the p
 Furthermore, Santa tells you, if there are multiple ways to arrange the packages such that the fewest possible are in the first group, you need to choose the way where the first group has **the smallest quantum entanglement** to reduce the chance of any "complications". The quantum entanglement of a group of packages is the product of their weights, that is, the value you get when you multiply their weights together. Only consider quantum entanglement if the first group has the fewest possible number of packages in it and all groups weigh the same amount.
 
 For example, suppose you have ten packages with weights `1` through `5` and `7` through `11`. For this situation, the unique first groups, their quantum entanglements, and a way to divide the remaining packages are as follows:
-'''
+```
 Group 1;             Group 2; Group 3
 11 9       (QE= 99); 10 8 2;  7 5 4 3 1
 10 9 1     (QE= 90); 11 7 2;  8 5 4 3
@@ -26,7 +26,7 @@ Group 1;             Group 2; Group 3
 8 7 5      (QE=280); 11 9;    10 4 3 2 1
 8 5 4 3    (QE=480); 11 9;    10 7 2 1
 7 5 4 3 1  (QE=420); 11 9;    10 8 2
-'''
+```
 Of these, although `10 9 1` has the smallest quantum entanglement (`90`), the configuration with only two packages, `11 9`, in the passenger compartment gives Santa the most legroom and wins. In this situation, the quantum entanglement for the ideal configuration is therefore `99`. Had there been two configurations with only two packages in the first group, the one with the smaller quantum entanglement would be chosen.
 
 What is the **quantum entanglement** of the first group of packages in the ideal configuration?
@@ -40,14 +40,14 @@ That's weird... the sleigh still isn't balancing.
 Balance the sleigh again, but this time, separate the packages into **four groups** instead of three. The other constraints still apply.
 
 Given the example packages above, this would be the new unique first groups, their quantum entanglements, and one way to divide the remaining packages:
-'''
+```
 11 4    (QE=44); 10 5;   9 3 2 1; 8 7
 10 5    (QE=50); 11 4;   9 3 2 1; 8 7
 9 5 1   (QE=45); 11 4;   10 3 2;  8 7
 9 4 2   (QE=72); 11 3 1; 10 5;    8 7
 9 3 2 1 (QE=54); 11 4;   10 5;    8 7
 8 7     (QE=56); 11 4;   10 5;    9 3 2 1
-'''
+```
 Of these, there are three arrangements that put the minimum (two) number of packages in the first group: `11 4`, `10 5`, and `8 7`. Of these, `11 4` has the lowest quantum entanglement, and so it is selected.
 
 Now, what is the **quantum entanglement** of the first group of packages in the ideal configuration?
