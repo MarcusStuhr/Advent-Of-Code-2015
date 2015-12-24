@@ -5,10 +5,10 @@ PUZZLE_DATA_FILENAME = "day24_input.txt"
 
 def get_ideal_QE(weights, num_groups): #assumes sum(weights) % num_groups == 0
     target_weight = sum(weights) / num_groups
-    for size_first_group in xrange(1, len(weights)+1):
-        for first_group in combinations(weights, size_first_group):
-            if sum(first_group) == target_weight:
-                return reduce(mul, first_group)
+    for i in xrange(1, len(weights)+1):
+        for c in combinations(weights, i):
+            if sum(c) == target_weight:
+                return reduce(mul, c)
 
 def main():
     weights = map(int,open(PUZZLE_DATA_FILENAME).read().split("\n"))
