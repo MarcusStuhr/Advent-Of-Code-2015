@@ -203,7 +203,7 @@ def len_look_and_say(input_string, num_iterations, MOD = None):
 def main():
     initial_string = "1113122113"
     print "Answer to part 1: {}".format(len_look_and_say(initial_string, 40))
-    print "Answer to part 1: {}".format(len_look_and_say(initial_string, 50))
+    print "Answer to part 2: {}".format(len_look_and_say(initial_string, 50))
 
 
 if __name__ == "__main__":
